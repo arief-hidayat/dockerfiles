@@ -22,4 +22,4 @@ RUN apt-get install -y curl
 
 RUN curl -s get.gvmtool.net | bash
 
-RUN apt-get purge curl
+RUN apt-get purge -y curl
