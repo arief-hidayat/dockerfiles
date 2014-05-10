@@ -9,6 +9,10 @@ FROM ubuntu
 
 MAINTAINER Alex Collins, alexcollins.org
 
+EXPOSE 6000
+
+EXPOSE 22
+
 # add-apt-repository
 RUN apt-get install -y software-properties-common
 
@@ -27,7 +31,19 @@ RUN apt-get install -y oracle-java8-installer
 
 RUN apt-get install -y tomcat7
 
-RUN apt-get install -y curl unzip tar
+RUN apt-get install -y curl unzip tar openssh-server
+
+# Installing the environment required: xserver, xdm, flux box, roc-filer and ssh
+RUN apt-get install -y xpra rox-filer ssh pwgen xserver-xephyr xdm fluxbox sudo
+
+# Configuring xdm to allow connections from any IP address and ssh to allow X11 Forwarding.
+RUN sed -i 's/DisplayManager.requestPort/!DisplayManager.requestPort/g' /etc/X11/xdm/xdm-config
+RUN sed -i '/#any host/c\*' /etc/X11/xdm/Xaccess
+RUN ln -s /usr/bin/Xorg /usr/bin/X
+RUN echo X11Forwarding yes >> /etc/ssh/ssh_config
+
+# Upstart and DBus have issues inside docker. We work around in order to install firefox.
+RUN dpkg-divert --local --rename --add /sbin/initctl && ln -sf /bin/true /sbin/initctl
 
 # System setup complete, now create dev environment
 
@@ -40,9 +56,8 @@ ENV HOME /home/dev/
 WORKDIR /home/dev/
 
 # Grails
-#
-RUN curl -s get.gvmtool.net | bash
 
+RUN curl -s get.gvmtool.net | bash
 
 #RUN yes | gvm install grails
 
