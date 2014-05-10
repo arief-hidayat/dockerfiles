@@ -1,16 +1,15 @@
 # A cutting edge JEE development environment using:
-# GVM - for groovy/grails environment & SDK management
-# Grails - the latest version at time of installation, thanks to GVM
-# Oracle JDK 8
-# Tomcat 7
-# IntelliJ - Ultimate, 30-day free trial of version 13
-#
+#	GVM - for groovy/grails environment & SDK management
+# 	Grails - the latest version at time of installation, thanks to GVM
+# 	Oracle JDK 8
+# 	Tomcat 7
+# 	IntelliJ - Ultimate, 30-day free trial of version 13
 
 FROM ubuntu
 
-# For add-apt-repository
-RUN apt-get install -y python-software-properties
+MAINTAINER Alex Collins, alexcollins.org
 
+# add-apt-repository
 RUN apt-get install -y software-properties-common
 
 RUN add-apt-repository -y ppa:webupd8team/java
@@ -28,25 +27,34 @@ RUN apt-get install -y oracle-java8-installer
 
 RUN apt-get install -y tomcat7
 
-# GVM
-
 RUN apt-get install -y curl unzip tar
 
-RUN curl -s get.gvmtool.net | bash
+# System setup complete, now create dev environment
+
+RUN yes | adduser dev
+
+USER dev
+
+ENV HOME /home/dev/
+
+WORKDIR /home/dev/
 
 # Grails
+#
+RUN curl -s get.gvmtool.net | bash
 
-RUN yes | gvm install grails
+
+#RUN yes | gvm install grails
 
 # IntelliJ
 
-RUN mkdir -p /opt/intellij/
+RUN mkdir -p ~/intellij/
 
-RUN chmod a+rw /opt/intellij/
+RUN wget http://download.jetbrains.com/idea/ideaIU-13.1.2.tar.gz -O intellij/idea-13.1.2.tar.gz
 
-RUN wget http://download.jetbrains.com/idea/ideaIU-13.1.2.tar.gz -O /opt/intellij/idea-13.1.2.tar.gz
+RUN tar zxf intellij/idea*.tar.gz -C intellij/
 
-RUN tar zxf /opt/intellij/idea*.tar.gz -C /opt/intellij/
+USER root
 
 # Now clean-up non-essential tools
 RUN apt-get purge -y curl unzip tar
