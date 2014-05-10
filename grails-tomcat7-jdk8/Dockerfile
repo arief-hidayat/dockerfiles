@@ -55,6 +55,3 @@ RUN wget http://download.jetbrains.com/idea/ideaIU-13.1.2.tar.gz -O intellij/ide
 RUN tar zxf intellij/idea*.tar.gz -C intellij/
 
 USER root
-
-# Now clean-up non-essential tools
-RUN apt-get purge -y curl unzip tar
