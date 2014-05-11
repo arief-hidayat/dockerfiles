@@ -4,6 +4,8 @@ To run, do the following:
 
 Now run xdm in the container:
 
-	$ docker run docker run -p 6000 -p 22 -i -t atcol/grails-tomcat7-jdk8  /bin/bash
+	$ docker run -it --rm -p 5901:5901 atcol/grails-tomcat7-jdk8
 
-and execute `sh desktop.sh`.
+then execute:
+
+	$ USER=dev vncserver :1 -geometry 1280x800 -depth 24
