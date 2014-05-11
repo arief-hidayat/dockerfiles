@@ -19,3 +19,4 @@ Now connect using your favourite VNC viewer e.g.:
 and you should see this:
 
 ![Docker JEE development desktop environment](screenshot.png)
+![Docker JEE development desktop environment](screenshot-intellij-vnc-windows.png)
