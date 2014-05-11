@@ -1,0 +1,9 @@
+To run, do the following:
+	
+	$ docker pull atcol/grails-tomcat7-jdk8
+
+Now run xdm in the container:
+
+	$ docker run docker run -p 6000 -p 22 -i -t atcol/grails-tomcat7-jdk8  /bin/bash
+
+and execute `sh desktop.sh`.
