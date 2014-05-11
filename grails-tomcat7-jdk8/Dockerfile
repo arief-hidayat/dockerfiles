@@ -41,3 +41,6 @@ RUN tar zxf idea.tar.gz
 
 ADD ./install-grails.sh /home/dev/install-grails.sh
 
+ADD ./startvnc.sh /home/dev/startvnc.sh
+
+ENTRYPOINT /bin/bash
