@@ -6,13 +6,13 @@ Now run connect to the container in the container:
 
 	docker run -it --rm -p 5901:5901 atcol/grails-tomcat7-jdk8
 
-and start VNC:
+which will automatically start VNC as follows:
 
-	USER=dev vncserver :1 -geometry 1280x800 -depth 24
+	USER=dev vncserver :1 -geometry 1600x900 -depth 24
 
-entering your desired password when prompted.
+thus ask you for a password.
 
-Now connect using your favourite VNC viewer:
+Now connect using your favourite VNC viewer e.g.:
 
 	xtightvncviewer localhost::5901
 
