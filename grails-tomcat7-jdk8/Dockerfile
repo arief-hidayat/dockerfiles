@@ -41,6 +41,3 @@ RUN tar zxf idea.tar.gz
 
 ADD ./install-grails.sh /home/dev/install-grails.sh
 
-ENV USER dev
-
-CMD ["vncserver", ":1", "-geometry", "1600x900", "-depth", "24"]
