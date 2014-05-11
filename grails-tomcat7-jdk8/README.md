@@ -4,13 +4,15 @@ To run, do the following:
 
 Now run connect to the container in the container:
 
-	docker run -it --rm -p 5901:5901 atcol/grails-tomcat7-jdk8
+	docker run -v $HOME/docker/:/home/dev/files:rw -it --rm -p 5901:5901 atcol/grails-tomcat7-jdk8
 
-which will automatically start VNC as follows:
+**Note**: change $HOME/docker to a host OS directory of your choosing, for RW storage, but ensure it's read-write permissions for all
 
-	USER=dev vncserver :1 -geometry 1600x900 -depth 24
+Now start VNC using the `/home/dev/startvnc.sh` script:
 
-thus ask you for a password.
+	sh startvnc.sh
+
+and enter a desired password
 
 Now connect using your favourite VNC viewer e.g.:
 
