@@ -1,20 +1,20 @@
 To run, do the following:
 	
-	$ docker pull atcol/grails-tomcat7-jdk8
+	docker pull atcol/grails-tomcat7-jdk8
 
-Now run xdm in the container:
+Now run connect to the container in the container:
 
-	$ docker run -it --rm -p 5901:5901 atcol/grails-tomcat7-jdk8
+	docker run -it --rm -p 5901:5901 atcol/grails-tomcat7-jdk8
 
-then execute:
+and start VNC:
 
-	$ USER=dev vncserver :1 -geometry 1280x800 -depth 24
+	USER=dev vncserver :1 -geometry 1280x800 -depth 24
 
-and enter your desired password when prompted.
+entering your desired password when prompted.
 
 Now connect using your favourite VNC viewer:
 
-	$ xtightvncviewer localhost::5901
+	xtightvncviewer localhost::5901
 
 and you should see this:
 
