@@ -4,10 +4,8 @@
 # 	Oracle JDK 8
 # 	Tomcat 7
 # 	IntelliJ - Ultimate, 30-day free trial of version 13
-#
-# X-related setup thanks to github.com/rogaha/docker-desktop
 
-FROM ubuntu
+FROM dockerfile/ubuntu-desktop
 
 MAINTAINER Alex Collins, alexcollins.org
 
@@ -23,14 +21,7 @@ RUN echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-set-s
 
 RUN echo debconf shared/accepted-oracle-license-v1-1 seen true | debconf-set-selections
 
-RUN apt-get install -y oracle-java8-installer tomcat7 curl unzip tar openssh-server xpra rox-filer ssh pwgen xserver-xephyr xdm fluxbox sudo xserver-xorg-video-vesa
-
-# Configure X for remote connection
-RUN sed -i 's/DisplayManager.requestPort/!DisplayManager.requestPort/g' /etc/X11/xdm/xdm-config
-RUN sed -i '/#any host/c\*' /etc/X11/xdm/Xaccess
-RUN ln -s /usr/bin/Xorg /usr/bin/X
-RUN echo X11Forwarding yes >> /etc/ssh/ssh_config
-RUN mkdir /var/run/sshd
+RUN apt-get install -y oracle-java8-installer tomcat7 curl unzip tar openssh-server 
 
 # System setup complete, now create dev environment
 
@@ -50,8 +41,3 @@ RUN tar zxf idea.tar.gz
 
 ADD ./setup.sh /home/dev/setup.sh
 
-EXPOSE 6000
-
-EXPOSE 22
-
-USER root
