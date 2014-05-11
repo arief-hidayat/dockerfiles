@@ -39,5 +39,5 @@ RUN wget http://download.jetbrains.com/idea/ideaIU-13.1.2.tar.gz -O ~/idea.tar.g
 
 RUN tar zxf idea.tar.gz
 
-ADD ./setup.sh /home/dev/setup.sh
+ADD ./install-grails.sh /home/dev/install-grails.sh
 
