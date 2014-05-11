@@ -30,6 +30,7 @@ RUN sed -i 's/DisplayManager.requestPort/!DisplayManager.requestPort/g' /etc/X11
 RUN sed -i '/#any host/c\*' /etc/X11/xdm/Xaccess
 RUN ln -s /usr/bin/Xorg /usr/bin/X
 RUN echo X11Forwarding yes >> /etc/ssh/ssh_config
+RUN mkdir /var/run/sshd
 
 # System setup complete, now create dev environment
 
@@ -47,8 +48,10 @@ RUN wget http://download.jetbrains.com/idea/ideaIU-13.1.2.tar.gz -O ~/idea.tar.g
 
 RUN tar zxf idea.tar.gz
 
-ADD ./setup.sh /home/dev/install-grails.sh
+ADD ./setup.sh /home/dev/setup.sh
 
 EXPOSE 6000
 
 EXPOSE 22
+
+USER root
