@@ -21,11 +21,27 @@ RUN echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-set-s
 
 RUN echo debconf shared/accepted-oracle-license-v1-1 seen true | debconf-set-selections
 
-RUN apt-get install -y oracle-java8-installer tomcat7 curl unzip tar openssh-server 
+RUN apt-get install -y oracle-java8-installer tomcat7 curl unzip tar openssh-server
+
+RUN apt-get install -y python-pip
+
+RUN easy_install supervisor
 
 # System setup complete, now create dev environment
 
 RUN yes | adduser dev
+
+ADD ./install-grails.sh /home/dev/install-grails.sh
+
+ADD ./startvnc.sh /home/dev/startvnc.sh
+
+ADD ./supervisord.conf /home/dev/supervisord.conf
+
+ADD ./vncpasswd /home/dev/.vnc/passwd
+
+RUN chown dev:dev -R /home/dev/.vnc/
+
+RUN chmod 400 /home/dev/.vnc/passwd
 
 USER dev
 
@@ -39,8 +55,5 @@ RUN wget http://download.jetbrains.com/idea/ideaIU-13.1.2.tar.gz -O ~/idea.tar.g
 
 RUN tar zxf idea.tar.gz
 
-ADD ./install-grails.sh /home/dev/install-grails.sh
-
-ADD ./startvnc.sh /home/dev/startvnc.sh
-
-ENTRYPOINT /bin/bash
+#ENTRYPOINT /bin/bash
+ENTRYPOINT supervisord -n -c /home/dev/supervisord.conf
