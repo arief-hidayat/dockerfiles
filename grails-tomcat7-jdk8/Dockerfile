@@ -33,8 +33,6 @@ RUN yes | adduser dev
 
 ADD ./install-grails.sh /home/dev/install-grails.sh
 
-ADD ./startvnc.sh /home/dev/startvnc.sh
-
 ADD ./supervisord.conf /home/dev/supervisord.conf
 
 ADD ./vncpasswd /home/dev/.vnc/passwd
