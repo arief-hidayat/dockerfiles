@@ -10,7 +10,7 @@ Now run the container:
 
 VNC is now running inside the container, which is detached by default (and named "desktop"). The VNC password is `docker`.
 
-Now connect using your favourite VNC viewer e.g.:
+Connect using your favourite VNC viewer e.g.:
 
 	vncviewer localhost:5901
 
